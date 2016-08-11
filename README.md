@@ -3,8 +3,8 @@
 [![Join the chat at https://gitter.im/ethcore/parity][gitter-image]][gitter-url]
 [![GPLv3][license-image]][license-url]
 
-[npm-image]: https://badge.fury.io/js/web3.onchange.png
-[npm-url]: https://npmjs.org/package/web3.onchange
+[npm-image]: https://badge.fury.io/js/web3.onChange.png
+[npm-url]: https://npmjs.org/package/web3.onChange
 [travis-image]: https://travis-ci.org/tomusdrw/web3.onChange.svg?branch=master
 [travis-url]: https://travis-ci.org/tomusdrw/web3.onChange
 [gitter-image]: https://badges.gitter.im/Join%20Chat.svg
@@ -12,15 +12,23 @@
 [license-image]: https://img.shields.io/badge/license-GPL%20v3-green.svg
 [license-url]: http://www.gnu.org/licenses/gpl-3.0.en.html
 
-# Web3.onChange
+# web3.onChange
 
 Wondering how often / when you should call Web3 methods again to refresh the content?
 
 
 ## Usage
 
+Install:
+
+``` bash
+$ npm install web3.onChange --save
+```
+
+Use:
+
 ```javascript
-import {Web3OnChange} from 'web3.onchange';
+import {Web3OnChange} from 'web3.onChange';
 import {Web3} from 'web3';
 
 // Initialize web3
