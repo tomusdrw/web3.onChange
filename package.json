@@ -28,6 +28,7 @@
     "semistandard": "^8.0.0",
     "sinon": "^1.17.4",
     "sinon-chai": "^2.8.0",
+    "web3": "^0.17.0-alpha",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   }

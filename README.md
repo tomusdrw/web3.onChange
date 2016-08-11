@@ -14,3 +14,46 @@
 
 # Web3.onChange
 
+Wondering how often / when you should call Web3 methods again to refresh the content?
+
+
+## Usage
+
+```javascript
+import {Web3OnChange} from 'web3.onchange';
+import {Web3} from 'web3';
+
+// Initialize web3
+let web3 = typeof web3 === 'undefined' ? new Web3(new Web3.providers.HttpProvider('http://localhost:8545')) : web3;
+
+// Install .onChange plugin
+web3 = Web3OnChange.install(web3);
+
+// Instead of:
+setTimeout(() => {
+  web3.eth.getBalance('0xbb9bc244d798123fde783fcc1c72d3bb8c189413', (err, result) => {
+    console.log(result);
+  });
+}, 1000);
+
+// Just do:
+const off = web3.eth.getBalance.onChange('0xbb9bc244d798123fde783fcc1c72d3bb8c189413', (err, result) => {
+  console.log(result);
+});
+// To stop watching:
+off();
+
+// Same with contracts:
+const off2 = web3.eth.contract(abi).at('0xbb9bc244d798123fde783fcc1c72d3bb8c189413').balance.onChange((err, result) => {
+  console.log(result);
+});
+
+
+## How it works
+
+By default all queries are made (batched) for each new block. It is planned to support other polling schemes in future.
+
+## TODO
+- [ ] - Support time-based polling (`.onChange(...args, callback, 500)` - would poll every 500s)
+- [ ] - Support pending-transactions polling (`.onChange(...args, callback, 'pending')`)
+- [ ] - Support Filter/Logs polling?
