@@ -63,6 +63,7 @@ const off2 = web3.eth.contract(abi).at('0xbb9bc244d798123fde783fcc1c72d3bb8c1894
 By default all queries are made (batched) for each new block. It is planned to support other polling schemes in future.
 
 ## TODO
-- [ ] - Support time-based polling (`.onChange(...args, callback, 500)` - would poll every 500s)
+- [x] - Support time-based polling (`.onChange(...args, callback, 500)` - would poll every 500s)
+- [ ] - Support [jacogr/ethapi-js](https://github.com/jacogr/ethapi-js)
 - [ ] - Support pending-transactions polling (`.onChange(...args, callback, 'pending')`)
 - [ ] - Support Filter/Logs polling?
