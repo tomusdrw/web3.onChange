@@ -19,13 +19,21 @@ Wondering how often / when you should call Web3 methods again to refresh the con
 
 ## Usage
 
-Install:
+### Install
 
 ```bash
 $ npm install web3.onChange --save
 ```
 
-Use:
+### In short
+
+```javascript
+web3.eth.getBalance.onChange('0xbb9bc244d798123fde783fcc1c72d3bb8c189413', (err, balance) => {
+  console.log(`Your new balance is: ${balance}`);
+});
+```
+
+### Full version
 
 ```javascript
 import {Web3OnChange} from 'web3.onChange';
@@ -37,21 +45,23 @@ let web3 = typeof web3 === 'undefined' ? new Web3(new Web3.providers.HttpProvide
 // Install .onChange plugin
 web3 = Web3OnChange.install(web3);
 
-// Instead of:
+// Instead of polling manually for every call
 setTimeout(() => {
   web3.eth.getBalance('0xbb9bc244d798123fde783fcc1c72d3bb8c189413', (err, result) => {
     console.log(result);
   });
 }, 1000);
 
-// Just do:
+// Just listen to changes
 const off = web3.eth.getBalance.onChange('0xbb9bc244d798123fde783fcc1c72d3bb8c189413', (err, result) => {
   console.log(result);
 });
-// To stop watching:
+
+// and to stop listening call
 off();
 
-// Same with contracts:
+// You can do the same with every web3 method.
+// Also in contracts:
 const off2 = web3.eth.contract(abi).at('0xbb9bc244d798123fde783fcc1c72d3bb8c189413').balance.onChange((err, result) => {
   console.log(result);
 });
@@ -60,10 +70,15 @@ const off2 = web3.eth.contract(abi).at('0xbb9bc244d798123fde783fcc1c72d3bb8c1894
 
 ## How it works
 
-By default all queries are made (batched) for each new block. It is planned to support other polling schemes in future.
+Library is doing a batch request each time new block is imported.
+
+After a request is made response is compared with previous value and callback is fired only if current value is different then the previous one.
+
+By default all queries are made (batched) only when new block is imported (`eth.filter('latest')` fires). By passing additional argument (number) you can specify polling interval manually.
 
 ## TODO
-- [x] - Support time-based polling (`.onChange(...args, callback, 500)` - would poll every 500s)
-- [ ] - Support [jacogr/ethapi-js](https://github.com/jacogr/ethapi-js)
+- [x] - Support time-based polling (`.onChange(...args, callback, 500)` - polls every 500s)
+- [ ] - Support lightweight, promise-based Web3 replacement [jacogr/ethapi-js](https://github.com/jacogr/ethapi-js)
 - [ ] - Support pending-transactions polling (`.onChange(...args, callback, 'pending')`)
 - [ ] - Support Filter/Logs polling?
+- [ ] - Passing old value?
