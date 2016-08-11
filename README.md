@@ -21,7 +21,7 @@ Wondering how often / when you should call Web3 methods again to refresh the con
 
 Install:
 
-``` bash
+```bash
 $ npm install web3.onChange --save
 ```
 
@@ -55,6 +55,7 @@ off();
 const off2 = web3.eth.contract(abi).at('0xbb9bc244d798123fde783fcc1c72d3bb8c189413').balance.onChange((err, result) => {
   console.log(result);
 });
+```
 
 
 ## How it works
